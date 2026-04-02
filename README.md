@@ -9,8 +9,8 @@ Atelier Home is a Next.js home decor ecommerce app with persisted auth, catalog,
 - Product detail pages with richer merchandising, stock visibility, and related products.
 - Cookie-session authentication with registration, login, logout, and account-aware order history.
 - Synced cart behavior with guest-cart merge on sign-in.
-- Persisted checkout flow with payment records, stock decrement, and order confirmation.
-- Admin dashboard for revenue snapshot, recent orders, low-stock watch, and inventory updates.
+- Persisted checkout flow with payment records, stock decrement on successful payment, and success or decline confirmation states.
+- Admin dashboard for revenue snapshot, recent orders, low-stock watch, inventory updates, and order status progression.
 
 ## Stack
 
@@ -45,4 +45,4 @@ npm run dev
 ## Notes
 
 - Product seed content still comes from `src/data/products.ts`, then gets written into SQLite through Prisma seed.
-- Payments use a demo provider by default and automatically switch to a `stripe-ready` mode when `STRIPE_SECRET_KEY` is present.
+- Payments use a demo provider by default, including explicit success and decline test flows for checkout UX, and automatically switch to a `stripe-ready` mode when `STRIPE_SECRET_KEY` is present.
