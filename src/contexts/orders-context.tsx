@@ -13,6 +13,7 @@ export type OrderRecord = {
   id: string;
   createdAt: string;
   status: "Confirmed" | "Packed" | "Shipped";
+  paymentStatus?: "SUCCEEDED" | "FAILED" | "PENDING";
   customerName: string;
   customerEmail: string;
   shippingAddress: string;
@@ -41,7 +42,7 @@ type PlaceOrderInput = {
 
 type OrdersContextValue = {
   orders: OrderRecord[];
-  placeOrder: (input: PlaceOrderInput) => Promise<{ ok: boolean; orderId?: string; message?: string }>;
+  placeOrder: (input: PlaceOrderInput) => Promise<{ ok: boolean; orderId?: string; paymentStatus?: "SUCCEEDED" | "FAILED" | "PENDING"; message?: string }>;
   refreshOrders: () => Promise<void>;
 };
 
@@ -107,13 +108,13 @@ export function OrdersProvider({ children }: { children: React.ReactNode }) {
       body: JSON.stringify(input),
     });
 
-    const payload = (await response.json()) as { orderId?: string; message?: string };
-    if (!response.ok) {
+    const payload = (await response.json()) as { orderId?: string; paymentStatus?: "SUCCEEDED" | "FAILED" | "PENDING"; message?: string };
+    if (!response.ok || !payload.orderId || !payload.paymentStatus) {
       return { ok: false, message: payload.message ?? "Unable to place the order." };
     }
 
     await refreshOrders();
-    return { ok: true, orderId: payload.orderId };
+    return { ok: payload.paymentStatus !== "FAILED", orderId: payload.orderId, paymentStatus: payload.paymentStatus, message: payload.message };
   };
 
   return <OrdersContext.Provider value={{ orders, placeOrder, refreshOrders }}>{children}</OrdersContext.Provider>;

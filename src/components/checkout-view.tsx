@@ -22,6 +22,7 @@ export function CheckoutView() {
   const [country, setCountry] = useState("United States");
   const [paymentMethod, setPaymentMethod] = useState("Card ending in 4242");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const itemSummary = useMemo(() => items.map((item) => `${item.quantity}× ${item.product.name}`).join(", "), [items]);
 
@@ -60,11 +61,14 @@ export function CheckoutView() {
         className="glass-card rounded-[32px] p-6 sm:p-8"
         onSubmit={async (event) => {
           event.preventDefault();
+          setError("");
+
           if (!name || !email || !address || !city || !country || !paymentMethod) {
             setError("Complete the shipping and payment fields before placing the order.");
             return;
           }
 
+          setIsSubmitting(true);
           const order = await placeOrder({
             customerName: name,
             customerEmail: email,
@@ -78,14 +82,20 @@ export function CheckoutView() {
             total,
           });
 
-          if (!order.ok || !order.orderId) {
+          if (!order.orderId) {
+            setIsSubmitting(false);
             setError(order.message ?? "Unable to place the order.");
             return;
           }
 
-          await clearCart();
+          if (order.paymentStatus === "SUCCEEDED") {
+            await clearCart();
+          }
+
           startTransition(() => {
-            router.push(`/checkout/success?order=${order.orderId}`);
+            const status = order.paymentStatus?.toLowerCase() ?? "failed";
+            const message = encodeURIComponent(order.message ?? "");
+            router.push(`/checkout/success?order=${order.orderId}&status=${status}&message=${message}`);
           });
         }}
       >
@@ -118,19 +128,20 @@ export function CheckoutView() {
         <div className="mt-8 rounded-[28px] bg-white/40 p-5">
           <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--forest)]">Payment</p>
           <div className="mt-4 grid gap-3">
-            {["Card ending in 4242", "PayPal", "Apple Pay"].map((method) => (
+            {["Card ending in 4242", "PayPal", "Apple Pay", "Card ending in 4000 (Test decline)"].map((method) => (
               <label key={method} className="flex items-center gap-3 rounded-[20px] bg-white/50 px-4 py-3">
                 <input type="radio" name="paymentMethod" checked={paymentMethod === method} onChange={() => setPaymentMethod(method)} />
                 <span>{method}</span>
               </label>
             ))}
           </div>
+          <p className="mt-4 text-sm text-[var(--muted)]">Use the 4242 option for demo success or the 4000 option to preview a declined payment flow.</p>
         </div>
 
         {error ? <p className="mt-5 rounded-[20px] bg-red-100 px-4 py-3 text-sm text-red-700">{error}</p> : null}
 
-        <button type="submit" className="button-primary mt-8 w-full">
-          Place order
+        <button type="submit" className="button-primary mt-8 w-full" disabled={isSubmitting}>
+          {isSubmitting ? "Processing payment..." : "Place order"}
         </button>
       </form>
 

@@ -142,16 +142,24 @@ export async function POST(request: Request) {
       },
     });
 
-    for (const item of cartItems) {
-      await transaction.product.update({
-        where: { id: item.productId },
-        data: { stock: { decrement: item.quantity } },
-      });
+    if (payment.status === "SUCCEEDED") {
+      for (const item of cartItems) {
+        await transaction.product.update({
+          where: { id: item.productId },
+          data: { stock: { decrement: item.quantity } },
+        });
+      }
+
+      await transaction.cartItem.deleteMany({ where: { userId: user.id } });
     }
 
-    await transaction.cartItem.deleteMany({ where: { userId: user.id } });
     return createdOrder;
   });
 
-  return NextResponse.json({ orderId: order.publicId, total });
+  return NextResponse.json({
+    orderId: order.publicId,
+    total,
+    paymentStatus: payment.status,
+    message: payment.message,
+  });
 }
