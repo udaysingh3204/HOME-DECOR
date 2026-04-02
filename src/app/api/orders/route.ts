@@ -37,6 +37,7 @@ export async function GET() {
       country: order.country,
       deliveryWindow: order.deliveryWindow,
       paymentMethod: order.paymentMethod,
+      paymentStatus: order.paymentStatus,
       subtotal: order.subtotal,
       shipping: order.shipping,
       total: order.total,

@@ -24,12 +24,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     <main className="container py-10">
       <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
         <div className="space-y-4">
-          <div className="relative min-h-[420px] overflow-hidden rounded-[36px] shadow-[var(--shadow)]">
+          <div className="relative min-h-[420px] overflow-hidden rounded-[36px] shadow-(--shadow)">
             <Image src={product.image} alt={product.name} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 55vw" priority />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             {product.gallery.slice(0, 2).map((image) => (
-              <div key={image} className="relative h-40 overflow-hidden rounded-[28px]">
+              <div key={image} className="relative h-40 overflow-hidden rounded-3xl">
                 <Image src={image} alt={product.name} fill className="object-cover" sizes="(max-width: 640px) 100vw, 25vw" />
               </div>
             ))}
@@ -39,37 +39,37 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <section className="glass-card rounded-[36px] p-6 sm:p-8">
           <p className="pill">{product.category} · {product.collection}</p>
           <h1 className="section-title mt-5 max-w-[12ch]">{product.name}</h1>
-          <div className="mt-5 flex flex-wrap items-center gap-4 text-[var(--muted)]">
-            <span className="text-2xl font-semibold text-[var(--text)]">{formatPrice(product.price)}</span>
+          <div className="mt-5 flex flex-wrap items-center gap-4 text-(--muted)">
+            <span className="text-2xl font-semibold text-(--text)">{formatPrice(product.price)}</span>
             {product.compareAtPrice ? <span className="line-through">{formatPrice(product.compareAtPrice)}</span> : null}
             <span>{product.rating.toFixed(1)} rating · {product.reviewCount} reviews</span>
             {product.badge ? <span>{product.badge}</span> : null}
           </div>
           <p className="section-copy mt-5">{product.description}</p>
 
-          <div className="mt-8 grid gap-5 rounded-[28px] bg-white/40 p-5 sm:grid-cols-2">
+          <div className="mt-8 grid gap-5 rounded-3xl bg-white/40 p-5 sm:grid-cols-2">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--forest)]">Colors</p>
-              <p className="mt-2 text-[var(--muted)]">{product.colors.join(", ")}</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-(--forest)">Colors</p>
+              <p className="mt-2 text-(--muted)">{product.colors.join(", ")}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--forest)]">Materials</p>
-              <p className="mt-2 text-[var(--muted)]">{product.materials.join(", ")}</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-(--forest)">Materials</p>
+              <p className="mt-2 text-(--muted)">{product.materials.join(", ")}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--forest)]">Dimensions</p>
-              <p className="mt-2 text-[var(--muted)]">{product.dimensions}</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-(--forest)">Dimensions</p>
+              <p className="mt-2 text-(--muted)">{product.dimensions}</p>
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--forest)]">Delivery</p>
-              <p className="mt-2 text-[var(--muted)]">{estimatedDelivery} · {inventoryLabel}</p>
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-(--forest)">Delivery</p>
+              <p className="mt-2 text-(--muted)">{estimatedDelivery} · {inventoryLabel}</p>
             </div>
           </div>
 
-          <div className="mt-8 rounded-[28px] bg-[rgba(34,62,52,0.06)] p-5">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--forest)]">Why it works</p>
-            <p className="mt-3 leading-7 text-[var(--muted)]">{product.story}</p>
-            <ul className="mt-4 space-y-2 text-sm text-[var(--muted)]">
+          <div className="mt-8 rounded-3xl bg-[rgba(34,62,52,0.06)] p-5">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-(--forest)">Why it works</p>
+            <p className="mt-3 leading-7 text-(--muted)">{product.story}</p>
+            <ul className="mt-4 space-y-2 text-sm text-(--muted)">
               {product.features.map((feature) => (
                 <li key={feature}>• {feature}</li>
               ))}

@@ -13,7 +13,7 @@ export function CartView() {
   if (items.length === 0) {
     return (
       <section className="container py-12">
-        <div className="glass-card rounded-[32px] p-8 text-center">
+        <div className="glass-card rounded-4xl p-8 text-center">
           <p className="pill">Your cart is empty</p>
           <h1 className="section-title mx-auto mt-5 max-w-[11ch]">Start with a few pieces that shape the room.</h1>
           <p className="section-copy mx-auto mt-4">Browse the collection and add anything that fits your style. Signed-in carts persist and sync through the backend.</p>
@@ -36,21 +36,21 @@ export function CartView() {
           <h1 className="section-title mt-4 max-w-[10ch]">Everything you picked for home.</h1>
         </div>
         {items.map((item) => (
-          <article key={item.product.id} className="glass-card rounded-[28px] p-5">
+          <article key={item.product.id} className="glass-card rounded-3xl p-5">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="flex items-center gap-4">
-                <div className="relative h-24 w-24 overflow-hidden rounded-[22px]">
+                <div className="relative h-24 w-24 overflow-hidden rounded-[1.375rem]">
                   <Image src={item.product.image} alt={item.product.name} fill className="object-cover" sizes="96px" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--forest)]">{item.product.category}</p>
-                  <h2 className="mt-1 font-[family-name:var(--font-display)] text-2xl">{item.product.name}</h2>
-                  <p className="mt-2 text-sm text-[var(--muted)]">{formatPrice(item.product.price)} each · {item.product.room}</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.16em] text-(--forest)">{item.product.category}</p>
+                  <h2 className="mt-1 font-(family-name:--font-display) text-2xl">{item.product.name}</h2>
+                  <p className="mt-2 text-sm text-(--muted)">{formatPrice(item.product.price)} each · {item.product.room}</p>
                 </div>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <label className="text-sm font-semibold text-[var(--muted)]" htmlFor={`quantity-${item.product.id}`}>
+                <label className="text-sm font-semibold text-(--muted)" htmlFor={`quantity-${item.product.id}`}>
                   Qty
                 </label>
                 <select
@@ -74,9 +74,9 @@ export function CartView() {
         ))}
       </div>
 
-      <aside className="glass-card h-fit rounded-[32px] p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--forest)]">Order summary</p>
-        <div className="mt-6 space-y-4 text-[var(--muted)]">
+      <aside className="glass-card h-fit rounded-4xl p-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-(--forest)">Order summary</p>
+        <div className="mt-6 space-y-4 text-(--muted)">
           <div className="flex items-center justify-between">
             <span>Subtotal</span>
             <span>{formatPrice(subtotal)}</span>
@@ -85,7 +85,7 @@ export function CartView() {
             <span>Shipping</span>
             <span>{shipping === 0 ? "Free" : formatPrice(shipping)}</span>
           </div>
-          <div className="flex items-center justify-between border-t border-[var(--line)] pt-4 text-lg font-semibold text-[var(--text)]">
+          <div className="flex items-center justify-between border-t border-(--line) pt-4 text-lg font-semibold text-(--text)">
             <span>Total</span>
             <span>{formatPrice(total)}</span>
           </div>

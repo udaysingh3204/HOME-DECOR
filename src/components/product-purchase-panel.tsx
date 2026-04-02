@@ -14,9 +14,9 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
 
   return (
     <div className="mt-8 space-y-4">
-      <div className="grid gap-4 rounded-[28px] bg-white/40 p-5 sm:grid-cols-[120px_1fr] sm:items-end">
+      <div className="grid gap-4 rounded-3xl bg-white/40 p-5 sm:grid-cols-[120px_1fr] sm:items-end">
         <div>
-          <label htmlFor="quantity" className="mb-2 block text-sm font-semibold text-[var(--muted)]">
+          <label htmlFor="quantity" className="mb-2 block text-sm font-semibold text-(--muted)">
             Quantity
           </label>
           <select id="quantity" className="select" value={quantity} onChange={(event) => setQuantity(Number(event.target.value))}>
@@ -49,7 +49,7 @@ export function ProductPurchasePanel({ product }: { product: Product }) {
           )}
         </div>
       </div>
-      {message ? <p className="text-sm font-semibold text-[var(--forest)]">{message}</p> : null}
+      {message ? <p className="text-sm font-semibold text-(--forest)">{message}</p> : null}
     </div>
   );
 }

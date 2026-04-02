@@ -14,7 +14,7 @@ export async function GET() {
     db.order.count(),
     db.order.aggregate({ _sum: { total: true } }),
     db.product.findMany({ orderBy: [{ stock: "asc" }, { updatedAt: "desc" }] }),
-    db.order.findMany({ orderBy: { createdAt: "desc" }, take: 5 }),
+    db.order.findMany({ orderBy: { createdAt: "desc" }, take: 8 }),
   ]);
 
   return NextResponse.json({

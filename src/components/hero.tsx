@@ -9,7 +9,7 @@ export function Hero({
 }) {
   return (
     <section className="container grid gap-8 px-1 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:py-12">
-      <div className="fade-up glass-card rounded-[40px] px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+      <div className="fade-up glass-card rounded-4xl px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
         <span className="pill">Curated rooms. Faster checkout. Happier flow.</span>
         <h1 className="section-title mt-6 max-w-[12ch]">Build a home that looks styled without feeling staged.</h1>
         <p className="section-copy mt-6 text-base sm:text-lg">
@@ -24,37 +24,37 @@ export function Hero({
           </Link>
         </div>
         <div className="mt-8 grid gap-3 sm:grid-cols-4">
-          <div className="rounded-[24px] bg-white/45 p-4">
-            <p className="text-sm text-[var(--muted)]">Products</p>
+          <div className="rounded-3xl bg-white/45 p-4">
+            <p className="text-sm text-(--muted)">Products</p>
             <p className="mt-2 text-2xl font-semibold">{metrics.products}</p>
           </div>
-          <div className="rounded-[24px] bg-white/45 p-4">
-            <p className="text-sm text-[var(--muted)]">Collections</p>
+          <div className="rounded-3xl bg-white/45 p-4">
+            <p className="text-sm text-(--muted)">Collections</p>
             <p className="mt-2 text-2xl font-semibold">{metrics.collections}</p>
           </div>
-          <div className="rounded-[24px] bg-white/45 p-4">
-            <p className="text-sm text-[var(--muted)]">Rooms</p>
+          <div className="rounded-3xl bg-white/45 p-4">
+            <p className="text-sm text-(--muted)">Rooms</p>
             <p className="mt-2 text-2xl font-semibold">{metrics.rooms}</p>
           </div>
-          <div className="rounded-[24px] bg-white/45 p-4">
-            <p className="text-sm text-[var(--muted)]">Fast dispatch</p>
+          <div className="rounded-3xl bg-white/45 p-4">
+            <p className="text-sm text-(--muted)">Fast dispatch</p>
             <p className="mt-2 text-2xl font-semibold">{metrics.readyToShip}</p>
           </div>
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-        <div className="fade-up rounded-[36px] bg-[linear-gradient(135deg,#264337,#1a2f28)] p-6 text-white shadow-[var(--shadow)]" style={{ animationDelay: "120ms" }}>
+        <div className="fade-up rounded-[36px] bg-[linear-gradient(135deg,#264337,#1a2f28)] p-6 text-white shadow-(--shadow)" style={{ animationDelay: "120ms" }}>
           <p className="text-sm uppercase tracking-[0.22em] text-white/70">Live merchandising</p>
-          <p className="mt-3 font-[family-name:var(--font-display)] text-3xl">Filter by room, collection, category, and price without leaving the page</p>
+          <p className="mt-3 font-(family-name:--font-display) text-3xl">Filter by room, collection, category, and price without leaving the page</p>
         </div>
         <div className="fade-up grid gap-4 sm:grid-cols-2 lg:grid-cols-2" style={{ animationDelay: "220ms" }}>
-          <div className="glass-card rounded-[28px] p-5">
-            <p className="text-sm uppercase tracking-[0.18em] text-[var(--forest)]">Collections</p>
+          <div className="glass-card rounded-3xl p-5">
+            <p className="text-sm uppercase tracking-[0.18em] text-(--forest)">Collections</p>
             <p className="mt-3 text-lg font-semibold leading-7">{collections.join(" · ")}</p>
           </div>
-          <div className="glass-card rounded-[28px] p-5">
-            <p className="text-sm uppercase tracking-[0.18em] text-[var(--forest)]">Post-purchase</p>
+          <div className="glass-card rounded-3xl p-5">
+            <p className="text-sm uppercase tracking-[0.18em] text-(--forest)">Post-purchase</p>
             <p className="mt-3 text-lg font-semibold">Checkout completes with stored order history and delivery windows.</p>
           </div>
         </div>

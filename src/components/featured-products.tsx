@@ -18,19 +18,19 @@ export function FeaturedProducts({ featured, newest }: { featured: Product[]; ne
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      <div className="mt-12 rounded-[32px] bg-[rgba(255,255,255,0.5)] p-6">
+      <div className="mt-12 rounded-4xl bg-[rgba(255,255,255,0.5)] p-6">
         <div className="mb-5 flex items-center justify-between gap-4">
           <div>
             <p className="pill">Fresh arrivals</p>
-            <h3 className="mt-4 font-[family-name:var(--font-display)] text-3xl">New pieces with immediate visual payoff.</h3>
+            <h3 className="mt-4 font-(family-name:--font-display) text-3xl">New pieces with immediate visual payoff.</h3>
           </div>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
           {newest.map((product) => (
-            <div key={product.id} className="rounded-[28px] border border-white/60 bg-white/45 p-5">
-              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--forest)]">{product.badge ?? "New"}</p>
-              <h4 className="mt-2 font-[family-name:var(--font-display)] text-2xl">{product.name}</h4>
-              <p className="mt-3 text-sm leading-6 text-[var(--muted)]">{product.story}</p>
+            <div key={product.id} className="rounded-3xl border border-white/60 bg-white/45 p-5">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-(--forest)">{product.badge ?? "New"}</p>
+              <h4 className="mt-2 font-(family-name:--font-display) text-2xl">{product.name}</h4>
+              <p className="mt-3 text-sm leading-6 text-(--muted)">{product.story}</p>
             </div>
           ))}
         </div>

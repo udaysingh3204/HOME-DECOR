@@ -74,7 +74,7 @@ export function OrdersProvider({ children }: { children: React.ReactNode }) {
       return;
     }
 
-    const payload = (await response.json()) as { orders: Array<Omit<OrderRecord, "status"> & { status: string }> };
+    const payload = (await response.json()) as { orders: Array<Omit<OrderRecord, "status"> & { status: string; paymentStatus?: "SUCCEEDED" | "FAILED" | "PENDING" }> };
     setOrders(payload.orders.map((order) => ({ ...order, status: normalizeStatus(order.status) })));
   };
 
@@ -91,7 +91,7 @@ export function OrdersProvider({ children }: { children: React.ReactNode }) {
 
       const response = await fetch("/api/orders", { cache: "no-store" });
       if (!cancelled && response.ok) {
-        const payload = (await response.json()) as { orders: Array<Omit<OrderRecord, "status"> & { status: string }> };
+        const payload = (await response.json()) as { orders: Array<Omit<OrderRecord, "status"> & { status: string; paymentStatus?: "SUCCEEDED" | "FAILED" | "PENDING" }> };
         setOrders(payload.orders.map((order) => ({ ...order, status: normalizeStatus(order.status) })));
       }
     });
