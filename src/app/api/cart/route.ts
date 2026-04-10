@@ -40,6 +40,7 @@ async function getCartPayload(userId: string) {
       featured: item.product.featured,
       stock: item.product.stock,
       leadTimeDays: item.product.leadTimeDays,
+      auraScore: (item.product as any).auraScore ?? 0,
     },
   }));
 

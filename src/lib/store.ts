@@ -52,6 +52,7 @@ function mapProduct(record: NonNullable<ProductRecord>): Product {
     featured: record.featured,
     stock: record.stock,
     leadTimeDays: record.leadTimeDays,
+    auraScore: (record as any).auraScore ?? 0,
   };
 }
 

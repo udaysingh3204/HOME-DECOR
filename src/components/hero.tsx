@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight, Scan, Sparkles, Binary } from "lucide-react";
+import { Magnetic } from "@/components/magnetic";
 
 export function Hero({
   metrics,
@@ -8,56 +13,103 @@ export function Hero({
   collections: string[];
 }) {
   return (
-    <section className="container grid gap-8 px-1 py-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:py-12">
-      <div className="fade-up glass-card rounded-4xl px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
-        <span className="pill">Curated rooms. Faster checkout. Happier flow.</span>
-        <h1 className="section-title mt-6 max-w-[12ch]">Build a home that looks styled without feeling staged.</h1>
-        <p className="section-copy mt-6 text-base sm:text-lg">
-          Atelier Home now behaves like a compact, complete ecommerce experience. Browse live-filtered products, sign in or create an account, move through checkout, and revisit previous orders from the same account dashboard.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link href="/products" className="button-primary">
-            Shop collection
-          </Link>
-          <Link href="/checkout" className="button-secondary">
-            Go to checkout
-          </Link>
-        </div>
-        <div className="mt-8 grid gap-3 sm:grid-cols-4">
-          <div className="rounded-3xl bg-white/45 p-4">
-            <p className="text-sm text-(--muted)">Products</p>
-            <p className="mt-2 text-2xl font-semibold">{metrics.products}</p>
+    <section className="container px-4 py-20 lg:py-32">
+      <div className="grid gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-12"
+        >
+          <div className="space-y-6">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              className="flex items-center gap-3 text-meta"
+            >
+              <div className="h-2 w-2 rounded-full bg-accent animate-pulse" />
+              <span>Manifesto Vol. 01 / Serial 00A</span>
+            </motion.div>
+            
+            <h1 className="section-title text-white">
+              YOUR SPACE IS <br />
+              <span className="aura-text-gradient italic">UNFINISHED</span>.
+            </h1>
+            
+            <p className="section-subtitle">
+              AURA is the definitive technical layer for your home. We synthesize high-end architecture with raw digital energy to define your aesthetic supremacy.
+            </p>
           </div>
-          <div className="rounded-3xl bg-white/45 p-4">
-            <p className="text-sm text-(--muted)">Collections</p>
-            <p className="mt-2 text-2xl font-semibold">{metrics.collections}</p>
+
+          <div className="flex flex-wrap gap-6 items-center">
+            <Magnetic>
+              <Link href="/products" className="button-primary group">
+                Enter the Void
+                <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-2" />
+              </Link>
+            </Magnetic>
+            <Link href="/products?featured=true" className="group flex items-center gap-2 text-meta hover:text-white transition-colors">
+              <span>View Collections</span>
+              <div className="h-[1px] w-8 bg-white/20 transition-all group-hover:w-12 group-hover:bg-accent" />
+            </Link>
           </div>
-          <div className="rounded-3xl bg-white/45 p-4">
-            <p className="text-sm text-(--muted)">Rooms</p>
-            <p className="mt-2 text-2xl font-semibold">{metrics.rooms}</p>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 1.5 }}
+          className="relative"
+        >
+          <div className="glass-card rounded-none border-l-4 border-accent p-10 md:p-16">
+            <Scan className="h-10 w-10 text-white/10 mb-8 ai-scan-glow" />
+            <h3 className="heading-bold text-4xl leading-none text-white lg:text-5xl">
+              SYNTHESIZED OBJET <br /> D&apos;ART.
+            </h3>
+            <p className="mt-8 text-sm font-medium leading-relaxed text-white/40 italic font-(family-name:--font-serif-elegant) max-w-sm">
+              &ldquo;Every drop represents a calculated vibration in the modern landscape. We don&apos;t just design decor; we manifest frequency.&rdquo;
+            </p>
+            
+            <div className="mt-12 grid grid-cols-2 gap-8 border-t border-white/5 pt-10">
+              <div className="space-y-1">
+                <p className="text-meta">Aura Flux</p>
+                <p className="heading-bold text-3xl">+1000</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-meta">Manifested</p>
+                <p className="heading-bold text-3xl">{metrics.products}</p>
+              </div>
+            </div>
           </div>
-          <div className="rounded-3xl bg-white/45 p-4">
-            <p className="text-sm text-(--muted)">Fast dispatch</p>
-            <p className="mt-2 text-2xl font-semibold">{metrics.readyToShip}</p>
-          </div>
-        </div>
+          
+          <div className="absolute -z-10 -right-12 -bottom-12 h-64 w-64 rounded-full bg-accent/20 blur-[120px]" />
+        </motion.div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-        <div className="fade-up rounded-[36px] bg-[linear-gradient(135deg,#264337,#1a2f28)] p-6 text-white shadow-(--shadow)" style={{ animationDelay: "120ms" }}>
-          <p className="text-sm uppercase tracking-[0.22em] text-white/70">Live merchandising</p>
-          <p className="mt-3 font-(family-name:--font-display) text-3xl">Filter by room, collection, category, and price without leaving the page</p>
-        </div>
-        <div className="fade-up grid gap-4 sm:grid-cols-2 lg:grid-cols-2" style={{ animationDelay: "220ms" }}>
-          <div className="glass-card rounded-3xl p-5">
-            <p className="text-sm uppercase tracking-[0.18em] text-(--forest)">Collections</p>
-            <p className="mt-3 text-lg font-semibold leading-7">{collections.join(" · ")}</p>
-          </div>
-          <div className="glass-card rounded-3xl p-5">
-            <p className="text-sm uppercase tracking-[0.18em] text-(--forest)">Post-purchase</p>
-            <p className="mt-3 text-lg font-semibold">Checkout completes with stored order history and delivery windows.</p>
-          </div>
-        </div>
+      {/* Editorial Stats Bar */}
+      <div className="mt-32 grid gap-8 md:grid-cols-4 border-t border-white/10 pt-12">
+        {[
+          { label: "Technical Series", val: "A.01-A.04", icon: Binary },
+          { label: "Zone Mastery", val: metrics.rooms, icon: Scan },
+          { label: "Global Sync", val: "NOW", icon: Sparkles },
+          { label: "Availability", val: "SCARCE", icon: ArrowRight },
+        ].map((stat, i) => (
+          <motion.div 
+            key={stat.label}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.1 }}
+            className="space-y-2"
+          >
+            <div className="flex items-center gap-2">
+              <stat.icon className="h-3 w-3 text-accent" />
+              <p className="text-meta">{stat.label}</p>
+            </div>
+            <p className="heading-bold text-2xl text-white">{stat.val}</p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );

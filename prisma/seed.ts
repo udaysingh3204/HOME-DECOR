@@ -55,6 +55,7 @@ async function main() {
         featured: product.featured,
         stock: product.stock,
         leadTimeDays: product.leadTimeDays,
+        auraScore: product.auraScore,
         active: true,
       },
       create: {
@@ -80,6 +81,7 @@ async function main() {
         featured: product.featured,
         stock: product.stock,
         leadTimeDays: product.leadTimeDays,
+        auraScore: product.auraScore,
         active: true,
       },
     });

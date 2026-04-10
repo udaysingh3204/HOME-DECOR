@@ -2,75 +2,110 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
+import { ShoppingBag, User as UserIcon, LogOut, Zap } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { useCart } from "@/contexts/cart-context";
+import { Magnetic } from "@/components/magnetic";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/products", label: "Shop" },
-  { href: "/login", label: "Account" },
-  { href: "/cart", label: "Cart" },
+  { href: "/", label: "Vibe" },
+  { href: "/products", label: "Drops" },
+  { href: "/cart", label: "Stash" },
 ];
 
 export function SiteHeader() {
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const { itemCount } = useCart();
-  const navLinks = user?.role === "ADMIN" ? [...links, { href: "/admin", label: "Admin" }] : links;
+  const navLinks = user?.role === "ADMIN" ? [...links, { href: "/admin", label: "Control" }] : links;
 
   return (
     <header className="sticky top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
-      <div className="container glass-card flex flex-col gap-4 rounded-4xl border border-white/60 px-5 py-4 md:flex-row md:items-center md:justify-between md:px-7">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-(--surface-dark) text-sm font-bold uppercase tracking-[0.28em] text-white shadow-lg shadow-[rgba(34,62,52,0.24)]">
-            AH
-          </div>
-          <div>
-            <p className="font-(family-name:--font-display) text-2xl">Atelier Home</p>
-            <p className="text-sm text-(--muted)">Layered home decor, delivered with calm</p>
-          </div>
-        </Link>
-
-        <nav className="flex flex-wrap items-center gap-2 text-sm font-semibold">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "rounded-full px-4 py-2 transition",
-                pathname === link.href
-                  ? "bg-(--surface-dark) text-white"
-                  : "bg-white/40 text-(--text) hover:bg-white/60",
-              )}
+      <motion.div 
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="container glass-card flex flex-col gap-4 rounded-3xl px-6 py-4 md:flex-row md:items-center md:justify-between md:px-8"
+      >
+        <Magnetic>
+          <Link href="/" className="group flex items-center gap-4">
+            <motion.div 
+              whileHover={{ rotate: 180 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              className="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)]"
             >
-              {link.label}
-              {link.href === "/cart" ? ` (${itemCount})` : ""}
-            </Link>
+              <Zap className="h-6 w-6 fill-current" />
+            </motion.div>
+            <div>
+              <p className="aura-text-gradient font-(family-name:--font-display) text-3xl font-black tracking-tighter">AURA</p>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-(--muted)">Aesthetic Supremacy</p>
+            </div>
+          </Link>
+        </Magnetic>
+
+        <nav className="flex items-center gap-1 md:gap-3">
+          {navLinks.map((link) => (
+            <Magnetic key={link.href}>
+              <Link href={link.href} className="relative group">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={cn(
+                    "rounded-xl px-5 py-2.5 text-sm font-black uppercase tracking-widest transition-all duration-300",
+                    pathname === link.href
+                      ? "bg-white text-black shadow-lg shadow-white/10"
+                      : "text-white/70 hover:bg-white/10 hover:text-white",
+                  )}
+                >
+                  {link.label}
+                  {link.href === "/cart" && itemCount > 0 && (
+                    <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-(--accent) text-[10px] text-white animate-pulse">
+                      {itemCount}
+                    </span>
+                  )}
+                </motion.div>
+                {pathname === link.href && (
+                  <motion.div 
+                    layoutId="nav-glow"
+                    className="absolute -bottom-1 left-0 right-0 h-[2px] bg-(--accent) blur-[2px]"
+                  />
+                )}
+              </Link>
+            </Magnetic>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3 text-sm">
-          <div className="hidden rounded-full bg-[rgba(46,88,72,0.08)] px-4 py-2 text-(--forest) lg:block">
-            Free shipping over $250
+        <div className="flex items-center gap-4 text-sm font-bold">
+          <div className="hidden rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs uppercase tracking-wider text-white/50 lg:block">
+            Free shipping if you don&apos;t keep us a secret
           </div>
+          
           {user ? (
-            <>
-              <div className="rounded-full bg-white/40 px-4 py-2">
-                <p className="font-semibold capitalize text-(--text)">{user.name}</p>
-                <p className="text-(--muted)">{user.email}</p>
+            <div className="flex items-center gap-3">
+              <div className="hidden flex-col items-end sm:flex">
+                <p className="text-xs font-black uppercase tracking-tighter text-white">{user.name}</p>
+                <p className="text-[10px] text-white/40">{user.role}</p>
               </div>
-              <button type="button" onClick={() => void logout()} className="button-secondary px-4 py-2">
-                Sign out
-              </button>
-            </>
+              <Magnetic>
+                <button 
+                  type="button" 
+                  onClick={() => void logout()} 
+                  className="group flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 hover:bg-red-500/20 hover:text-red-500 transition-colors"
+                >
+                  <LogOut className="h-5 w-5" />
+                </button>
+              </Magnetic>
+            </div>
           ) : (
-            <Link href="/login" className="button-primary px-5 py-2">
-              Sign in
-            </Link>
+            <Magnetic>
+              <Link href="/login" className="button-primary px-6 py-2.5">
+                Enter
+              </Link>
+            </Magnetic>
           )}
         </div>
-      </div>
+      </motion.div>
     </header>
   );
-}
+}
